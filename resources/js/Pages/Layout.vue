@@ -9,11 +9,18 @@ const flash = computed(() => usePage().props.flash);
 <template>
     <main>
         <header>
-            <Link href="/dashboard" :class="{ active: $page.url === '/dashboard' }">Dashboard</Link>
-            <div v-if="flash.message" class="flash" :class="{ error: flash.error }">
-                {{ flash.message }}
+            <Link href="/dashboard" :class="{ active: $page.url.startsWith('/dashboard') }">Dashboard</Link>
+            <Link href="/exercise" :class="{ active: $page.url.startsWith('/exercise') }">Exercise</Link>
+
+            <div v-if="flash.success" class="flash success">
+                {{ flash.success }}
             </div>
+            <div v-if="flash.error" class="flash error">
+                {{ flash.error }}
+            </div>
+
             <div class="name pull-right">{{ user.name }}</div>
+
             <Link href="/logout" method="post" as="button">Logout</Link>
         </header>
         <article>
@@ -24,7 +31,10 @@ const flash = computed(() => usePage().props.flash);
 
 <style scoped lang="scss">
 header {
-    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
     height: 3rem;
     display: flex;
     flex-direction: row;
@@ -61,8 +71,11 @@ header {
     }
 
     .flash {
-        color: green;
         padding: 0 1rem;
+
+        &.success {
+            color: green;
+        }
 
         &.error {
             color: red;
@@ -71,6 +84,6 @@ header {
 }
 
 article {
-    margin: 1rem;
+    margin: 4rem 10vw 0 10vw;
 }
 </style>
