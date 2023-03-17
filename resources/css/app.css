@@ -24,3 +24,26 @@ body {
 .pull-right {
     margin-left: auto;
 }
+
+.block {
+    border: 2px solid #555555;
+    border-radius: .5rem;
+    width: 100%;
+    padding: 1rem;
+    background-color: #434343;
+    color: white;
+}
+
+table.data {
+    width: 100%;
+}
+
+table.data td,
+table.data th {
+    padding: .5rem;
+    border-bottom: 1px solid black;
+}
+
+table.data tr:last-child td {
+    border: none;
+}
