@@ -10,7 +10,7 @@ const flash = computed(() => usePage().props.flash);
     <main>
         <header>
             <Link href="/dashboard" :class="{ active: $page.url.startsWith('/dashboard') }">Dashboard</Link>
-            <Link href="/exercise" :class="{ active: $page.url.startsWith('/exercise') }">Exercise</Link>
+            <Link href="/exercises" :class="{ active: $page.url.startsWith('/exercise') }">Exercise</Link>
 
             <div v-if="flash.success" class="flash success">
                 {{ flash.success }}
