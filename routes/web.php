@@ -16,13 +16,18 @@ use App\Http\Controllers\DashboardController;
 |
 */
 
-Route::middleware('guest')->group(function () {
-    Route::get('/', [AuthController::class, 'index'])->name('login');
-    Route::post('/', [AuthController::class, 'login']);
+Route::controller(AuthController::class)->group(function () {
+    Route::middleware('guest')->group(function () {
+        Route::get('/', 'index');
+        Route::post('/', 'login');
+    });
+
+    Route::middleware('auth')->group(function () {
+        Route::post('/logout', 'logout');
+    });
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index']);
 
-    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
