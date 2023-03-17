@@ -5,9 +5,9 @@ import Layout from '../Layout.vue';
 
 <template>
     <Layout>
+
         <Head title="Dashboard" />
     </Layout>
 </template>
 
-<style>
-</style>
+<style scoped lang="scss"></style>

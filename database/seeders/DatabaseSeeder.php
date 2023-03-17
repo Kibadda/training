@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
     {
         $user = new User([
             'name' => 'Michael Strobel',
-            'email' => 'mstrobel97@gmail.com',
+            'email' => 'dev@training.com',
             'password' => Hash::make('12345678'),
         ]);
         $user->save();
