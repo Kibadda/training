@@ -23,7 +23,7 @@ class AuthController extends Controller
 
             session()->flash('message', 'Logged in successfully!');
 
-            return to_route('dashboard');
+            return to_action([DashboardController::class, 'index']);
         }
 
         return back()->withErrors(['password' => 'wrong credentials']);
@@ -35,6 +35,6 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return to_route('login');
+        return to_action([AuthController::class, 'login']);
     }
 }
