@@ -30,7 +30,7 @@ class ExerciseController extends Controller
 
         session()->flash('success', 'Exercise saved successfully!');
 
-        return to_action([ExerciseController::class, 'index']);
+        return to_action([self::class, 'index']);
     }
 
     public function edit(Exercise $exercise): Response
@@ -46,7 +46,7 @@ class ExerciseController extends Controller
 
         session()->flash('success', 'Exercise updated successfully!');
 
-        return to_action([ExerciseController::class, 'index']);
+        return to_action([self::class, 'index']);
     }
 
     public function destroy(Exercise $exercise): RedirectResponse
@@ -55,6 +55,6 @@ class ExerciseController extends Controller
 
         session()->flash('success', 'Exercise deleted successfully!');
 
-        return to_action([ExerciseController::class, 'index']);
+        return to_action([self::class, 'index']);
     }
 }
