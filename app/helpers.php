@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\RedirectResponse;
 
 function to_action(string|array $action, array $parameters = [], int $status = 302, array $headers = []): RedirectResponse
