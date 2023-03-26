@@ -20,17 +20,17 @@ use App\Models\Exercise;
 
 Route::controller(AuthController::class)->group(function () {
     Route::middleware('guest')->group(function () {
-        Route::get('/', 'index');
+        Route::get('/', 'index')->name('login');
         Route::post('/', 'login');
     });
 
     Route::middleware('auth')->group(function () {
-        Route::post('/logout', 'logout');
+        Route::post('/logout', 'logout')->name('logout');
     });
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index']);
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-    Route::resource(plural_from_model(Exercise::class), ExerciseController::class);
+    Route::resource(plural_from_model(Exercise::class), ExerciseController::class)->except('show');
 });
