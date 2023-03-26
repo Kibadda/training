@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Exercise;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreExerciseRequest extends FormRequest
 {
@@ -22,7 +24,10 @@ class StoreExerciseRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required',
+            'name' => [
+                'required',
+                Rule::unique(Exercise::class),
+            ],
         ];
     }
 }
