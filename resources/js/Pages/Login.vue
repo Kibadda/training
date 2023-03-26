@@ -6,15 +6,15 @@ defineProps({
 });
 
 const form = useForm({
-    email: null,
-    password: null,
+    email: '',
+    password: '',
 });
 </script>
 
 <template>
     <Head title="Login" />
     <div class="form-container">
-        <form @submit.prevent="form.post('/')" :class="{ error: form.errors.email || form.errors.password }">
+        <form @submit.prevent="form.post(route('login'))" :class="{ error: form.errors.email || form.errors.password }">
             <input type="email" v-model="form.email" placeholder="email" />
             <input type="password" v-model="form.password" placeholder="password" />
             <button type="submit" :disabled="form.processing">Login</button>
