@@ -12,5 +12,5 @@ createInertiaApp({
       .use(plugin)
       .mixin({ methods: { route } })
       .mount(el)
-  }
+  },
 });

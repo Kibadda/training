@@ -23,7 +23,7 @@ class AuthController extends Controller
 
             session()->flash('message', 'Logged in successfully!');
 
-            return to_action([DashboardController::class, 'index']);
+            return redirect()->intended(to_action([DashboardController::class, 'index']));
         }
 
         return back()->withErrors(['password' => 'wrong credentials']);

@@ -1,16 +1,20 @@
 <script setup>
 import { computed } from 'vue';
-import { Link, usePage } from '@inertiajs/vue3';
+import { Head, Link, usePage } from '@inertiajs/vue3';
 
 const user = computed(() => usePage().props.auth.user);
 const flash = computed(() => usePage().props.flash);
+
+defineProps({
+    title: String,
+});
 </script>
 
 <template>
     <main>
         <header>
-            <Link href="/dashboard" :class="{ active: $page.url.startsWith('/dashboard') }">Dashboard</Link>
-            <Link href="/exercises" :class="{ active: $page.url.startsWith('/exercise') }">Exercise</Link>
+            <Link :href="route('dashboard')" :class="{ active: $page.url.startsWith('/dashboard') }">Dashboard</Link>
+            <Link :href="route('exercises.index')" :class="{ active: $page.url.startsWith('/exercise') }">Exercise</Link>
 
             <div v-if="flash.success" class="flash success">
                 {{ flash.success }}
@@ -21,10 +25,14 @@ const flash = computed(() => usePage().props.flash);
 
             <div class="name pull-right">{{ user.name }}</div>
 
-            <Link href="/logout" method="post" as="button">Logout</Link>
+            <Link :href="route('logout')" method="post" as="button">Logout</Link>
         </header>
         <article>
-            <slot />
+
+            <Head :title="title" />
+            <div class="block">
+                <slot />
+            </div>
         </article>
     </main>
 </template>
@@ -85,5 +93,37 @@ header {
 
 article {
     margin: 4rem 10vw 0 10vw;
+
+    div.block {
+        border: 2px solid #555555;
+        border-radius: .5rem;
+        width: 100%;
+        padding: 1rem;
+        background-color: #434343;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+</style>
+
+<style j lang="scss">
+.block {
+
+    a,
+    button {
+        border: none;
+        background-color: #434343;
+        height: 100%;
+        text-align: center;
+        padding: 0 1rem;
+        text-decoration: none;
+        color: green;
+        font-weight: bold;
+        text-transform: uppercase;
+        font-size: 1rem;
+        cursor: pointer;
+    }
 }
 </style>

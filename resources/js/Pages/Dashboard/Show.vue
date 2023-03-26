@@ -4,9 +4,7 @@ import Layout from '../Layout.vue';
 </script>
 
 <template>
-    <Layout>
-
-        <Head title="Dashboard" />
+    <Layout title="Dashboard">
     </Layout>
 </template>
 
