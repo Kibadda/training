@@ -14,7 +14,8 @@ defineProps({
     <main>
         <header>
             <Link :href="route('dashboard')" :class="{ active: $page.url.startsWith('/dashboard') }">Dashboard</Link>
-            <Link :href="route('exercises.index')" :class="{ active: $page.url.startsWith('/exercise') }">Exercise</Link>
+            <Link :href="route('exercises.index')" :class="{ active: $page.url.startsWith('/exercises') }">Exercise</Link>
+            <Link :href="route('trainings.index')" :class="{ active: $page.url.startsWith('/trainings') }">Training</Link>
 
             <div v-if="flash.success" class="flash success">
                 {{ flash.success }}

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ExerciseController;
+use App\Http\Controllers\TrainingController;
 use App\Models\Exercise;
 
 /*
@@ -33,4 +34,5 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::resource(plural_from_model(Exercise::class), ExerciseController::class)->except('show');
+    Route::resource(plural_from_model(Training::class), TrainingController::class)->except('show');
 });

@@ -5,5 +5,6 @@ return [
         'log*',
         'dashboard',
         'exercises.*',
+        'trainings.*',
     ],
 ];
