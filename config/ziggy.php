@@ -6,5 +6,6 @@ return [
         'dashboard',
         'exercises.*',
         'trainings.*',
+        'plans.*',
     ],
 ];
