@@ -23,7 +23,9 @@ class AuthController extends Controller
 
             session()->flash('message', 'Logged in successfully!');
 
-            return redirect()->intended(to_action([DashboardController::class, 'index']));
+            // FIX: somehow this does not work
+            // return redirect()->intended(to_action([DashboardController::class, 'index']));
+            return to_action([DashboardController::class, 'index']);
         }
 
         return back()->withErrors(['password' => 'wrong credentials']);
