@@ -13,7 +13,7 @@ const form = useForm({
 
 <template>
     <Head title="Login" />
-    <div class="form-container">
+    <div>
         <form @submit.prevent="form.post(route('login'))" :class="{ error: form.errors.email || form.errors.password }">
             <input type="email" v-model="form.email" placeholder="email" />
             <input type="password" v-model="form.password" placeholder="password" />
