@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Exercise;
 use App\Models\Training;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -27,6 +28,20 @@ class UpdateTrainingRequest extends FormRequest
             'name' => [
                 'required',
                 Rule::unique(Training::class)->ignore($this->get('id')),
+            ],
+            'exercises.*.id' => [
+                'required',
+                Rule::exists(Exercise::class),
+            ],
+            'exercises.*.pivot.sets' => [
+                'required',
+                'min:1',
+                'numeric',
+            ],
+            'exercises.*.pivot.repetitions' => [
+                'required',
+                'min:1',
+                'numeric',
             ],
         ];
     }
