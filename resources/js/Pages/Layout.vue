@@ -11,54 +11,54 @@ defineProps({
 </script>
 
 <template>
+    <nav>
+        <Link :href="route('dashboard')" :class="{ active: $page.url.startsWith('/dashboard') }">Dashboard</Link>
+        <Link :href="route('exercises.index')" :class="{ active: $page.url.startsWith('/exercises') }">Exercise</Link>
+        <Link :href="route('trainings.index')" :class="{ active: $page.url.startsWith('/trainings') }">Training</Link>
+        <Link :href="route('plans.index')" :class="{ active: $page.url.startsWith('/plans') }">Plan</Link>
+
+        <div v-if="flash.success" class="flash success">
+            {{ flash.success }}
+        </div>
+        <div v-if="flash.error" class="flash error">
+            {{ flash.error }}
+        </div>
+
+        <div class="name pull-down">{{ user.name }}</div>
+
+        <Link :href="route('logout')" method="post" as="button">Logout</Link>
+    </nav>
     <main>
-        <header>
-            <Link :href="route('dashboard')" :class="{ active: $page.url.startsWith('/dashboard') }">Dashboard</Link>
-            <Link :href="route('exercises.index')" :class="{ active: $page.url.startsWith('/exercises') }">Exercise</Link>
-            <Link :href="route('trainings.index')" :class="{ active: $page.url.startsWith('/trainings') }">Training</Link>
-            <Link :href="route('plans.index')" :class="{ active: $page.url.startsWith('/plans') }">Plan</Link>
 
-            <div v-if="flash.success" class="flash success">
-                {{ flash.success }}
-            </div>
-            <div v-if="flash.error" class="flash error">
-                {{ flash.error }}
-            </div>
-
-            <div class="name pull-right">{{ user.name }}</div>
-
-            <Link :href="route('logout')" method="post" as="button">Logout</Link>
-        </header>
-        <article>
-
-            <Head :title="title" />
-            <div class="block">
-                <slot />
-            </div>
-        </article>
+        <Head :title="title" />
+        <div class="block">
+            <slot />
+        </div>
     </main>
 </template>
 
 <style scoped lang="scss">
-header {
-    position: absolute;
+nav {
+    position: fixed;
     top: 0;
     left: 0;
-    right: 0;
-    height: 3rem;
+    bottom: 0;
+    width: 15vw;
+    height: 100vh;
     display: flex;
-    flex-direction: row;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
     background-color: #171923;
 
     a,
     button {
         border: none;
         background-color: #171923;
-        height: 100%;
-        line-height: 3rem;
-        text-align: center;
-        padding: 0 1rem;
+        width: 100%;
+        text-align: start;
+        font-size: 1rem;
+        padding: 1rem;
         text-decoration: none;
         color: #ff2d20;
         font-weight: bold;
@@ -77,7 +77,7 @@ header {
 
     .name {
         color: white;
-        padding: 0 1rem;
+        padding: 1rem;
     }
 
     .flash {
@@ -93,19 +93,24 @@ header {
     }
 }
 
-article {
-    margin: 4rem 10vw 0 10vw;
+main {
+    width: 100%;
+    height: 100%;
+    padding: 5vh 3vw 5vh 18vw;
 
     div.block {
         border: 2px solid #555555;
         border-radius: .5rem;
         width: 100%;
+        height: 100%;
         padding: 1rem;
         background-color: #434343;
         color: white;
         display: flex;
         flex-direction: column;
-        align-items: center;
+        align-items: flex-start;
+        overflow-x: hidden;
+        overflow-y: auto;
     }
 }
 </style>
@@ -117,15 +122,20 @@ article {
     button {
         border: none;
         background-color: #434343;
-        height: 100%;
         text-align: center;
-        padding: 0 1rem;
+        padding: .25rem;
         text-decoration: none;
         color: green;
         font-weight: bold;
         text-transform: uppercase;
         font-size: 1rem;
         cursor: pointer;
+        border-radius: .5rem;
+        border: 1px solid green;
+
+        &.fixed {
+            position: fixed;
+        }
     }
 }
 </style>

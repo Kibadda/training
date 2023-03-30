@@ -11,6 +11,6 @@ createInertiaApp({
     createApp({ render: () => h(App, props) })
       .use(plugin)
       .mixin({ methods: { route } })
-      .mount(el)
+      .mount(el);
   },
 });
