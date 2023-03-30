@@ -1,25 +1,27 @@
 <script setup>
-import { Link } from '@inertiajs/vue3';
+import { Link, useForm } from '@inertiajs/vue3';
 import Layout from '../Layout.vue';
-import Form from '../Form.vue';
+import Form from '../Components/Form.vue';
+import Input from '../Components/Input.vue';
+import Submit from '../Components/Submit.vue';
 
 const props = defineProps({
     exercise: Object,
 });
 
-const fields = {
+const form = useForm({
     id: props.exercise.id,
-    name: {
-        type: 'text',
-        value: props.exercise.name,
-    },
-};
+    name: props.exercise.name,
+});
 </script>
 
 <template>
     <Layout title="Exercise">
         <Link :href="route('exercises.index')">Back</Link>
-        <Form :url="route('exercises.update', exercise.id)" method="put" action="edit" :fields="fields" />
+        <Form @submit.prevent="form.put(route('exercises.update', exercise.id))">
+            <Input v-model="form.name" :error="form.errors.name" label="Name" />
+            <Submit :disabled="form.processing" />
+        </Form>
     </Layout>
 </template>
 
