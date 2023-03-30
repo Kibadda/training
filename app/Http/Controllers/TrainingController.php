@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreTrainingRequest;
 use App\Http\Requests\UpdateTrainingRequest;
+use App\Models\Exercise;
 use App\Models\Training;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
@@ -20,13 +21,21 @@ class TrainingController extends Controller
 
     public function create(): Response
     {
-        return Inertia::render('Training/Create');
+        return Inertia::render('Training/Create', [
+            'exercises' => Exercise::all(),
+            'selected' => collect([]),
+        ]);
     }
 
     public function store(StoreTrainingRequest $request): RedirectResponse
     {
-        $training = new Training($request->validated());
+        $safe = $request->safe()->collect();
+        $training = new Training($safe->all());
         $training->save();
+
+        if (!empty($safe['exercises'])) {
+            $training->exercises()->sync(collect($safe['exercises'])->mapWithKeys(fn (array $item) => [$item['id'] => $item['pivot']]));
+        }
 
         session()->flash('success', 'Training saved successfully!');
 
@@ -37,12 +46,19 @@ class TrainingController extends Controller
     {
         return Inertia::render('Training/Edit', [
             'training' => $training,
+            'exercises' => Exercise::query()->whereNotIn('id', $training->exercises->pluck('id'))->get(),
+            'selected' => $training->exercises,
         ]);
     }
 
     public function update(UpdateTrainingRequest $request, Training $training): RedirectResponse
     {
-        $training->update($request->validated());
+        $safe = $request->safe()->collect();
+        $training->update($safe->all());
+
+        if (!empty($safe['exercises'])) {
+            $training->exercises()->sync(collect($safe['exercises'])->mapWithKeys(fn (array $item) => [$item['id'] => $item['pivot']]));
+        }
 
         session()->flash('success', 'Training updated successfully!');
 
