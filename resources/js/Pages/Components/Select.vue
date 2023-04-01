@@ -1,5 +1,10 @@
 <script setup>
+import { inject } from 'vue';
 import Label from '../Components/Label.vue';
+
+const { id } = inject('random');
+
+const randomId = id();
 
 defineProps({
     label: String,
@@ -21,8 +26,8 @@ function change(event) {
 
 <template>
     <div>
-        <Label :text="label" :error="error" />
-        <select :value="modelValue" :class="{ error: error }" @change="change">
+        <Label :text="label" :id="randomId" :error="error" />
+        <select :value="modelValue" :id="randomId" :class="{ error: error }" @change="change">
             <option v-for="option in options" :value="option.id">{{ option.name }}</option>
         </select>
     </div>

@@ -1,5 +1,10 @@
 <script setup>
+import { inject } from 'vue';
 import Label from '../Components/Label.vue';
+
+const { id } = inject('random');
+
+const randomId = id();
 
 defineProps({
     label: String,
@@ -18,8 +23,8 @@ defineEmits([
 
 <template>
     <div :class="{ hidden: type == 'hidden' }">
-        <Label :text="label" :error="error" />
-        <input :type="type" :value="modelValue" @input="$emit('update:model-value', $event.target.value)"
+        <Label :text="label" :id="randomId" :error="error" />
+        <input :type="type" :id="randomId" :value="modelValue" @input="$emit('update:model-value', $event.target.value)"
             :class="{ error: error }" />
     </div>
 </template>
