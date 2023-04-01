@@ -30,6 +30,11 @@ class PlanController extends Controller
     public function store(StorePlanRequest $request): RedirectResponse
     {
         $safe = $request->safe()->collect();
+
+        if ($safe['active']) {
+            Plan::query()->update(['active' => false]);
+        }
+
         $plan = new Plan($safe->all());
         $plan->save();
 
@@ -54,6 +59,11 @@ class PlanController extends Controller
     public function update(UpdatePlanRequest $request, Plan $plan): RedirectResponse
     {
         $safe = $request->safe()->collect();
+
+        if ($safe['active']) {
+            Plan::query()->update(['active' => false]);
+        }
+
         $plan->update($safe->all());
 
         if (!empty($safe['trainings'])) {
