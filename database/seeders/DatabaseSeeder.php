@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
         ]);
         $user->save();
 
-        $plan = new Plan(['name' => '3-split', 'current' => true]);
+        $plan = new Plan(['name' => '3-split', 'active' => true]);
         $plan->save();
 
         $push = new Training(['name' => 'Push']);
