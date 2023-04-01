@@ -6,26 +6,33 @@ const { id } = inject('random');
 
 const randomId = id();
 
-defineProps({
+const props = defineProps({
     label: String,
     error: String,
-    modelValue: [String, Number],
+    modelValue: [String, Number, Boolean],
     type: {
         type: String,
         default: 'text',
     },
 });
 
-defineEmits([
+const emit = defineEmits([
     'update:model-value',
 ]);
+
+function updateValue(event) {
+    if (props.type == 'checkbox') {
+        emit('update:model-value', event.target.checked);
+    } else {
+        emit('update:model-value', event.target.value);
+    }
+}
 </script>
 
 <template>
     <div :class="{ hidden: type == 'hidden' }">
-        <input :type="type" :id="randomId" :value="modelValue" @input="$emit('update:model-value', $event.target.value)"
-            :class="{ error: error }" />
         <Label v-if="type != 'hidden'" :text="label" :id="randomId" :error="error" />
+        <input :type="type" :id="randomId" :value="modelValue" @input="updateValue" :class="{ error: error }" />
     </div>
 </template>
 
