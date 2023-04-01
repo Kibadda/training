@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('plans', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
-            $table->boolean('current')->default(false);
+            $table->boolean('active')->default(false);
             $table->timestamps();
         });
     }

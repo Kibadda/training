@@ -33,7 +33,7 @@ class StorePlanRequest extends FormRequest
                 'required',
                 Rule::exists(Training::class),
             ],
-            'current' => [
+            'active' => [
                 'required',
                 'boolean',
             ],
