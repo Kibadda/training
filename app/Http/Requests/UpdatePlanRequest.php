@@ -33,6 +33,10 @@ class UpdatePlanRequest extends FormRequest
                 'required',
                 Rule::exists(Training::class),
             ],
+            'current' => [
+                'required',
+                'boolean',
+            ],
         ];
     }
 }

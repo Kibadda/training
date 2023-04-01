@@ -12,6 +12,7 @@ const props = defineProps({
 
 const form = useForm({
     name: '',
+    current: false,
     trainings: [],
 });
 
@@ -36,6 +37,7 @@ function removeTraining(index) {
         <Link :href="route('plans.index')">Back</Link>
         <Form @submit.prevent="form.post(route('plans.store'))">
             <Input v-model="form.name" :error="form.errors.name" label="Name" />
+            <Input v-model="form.current" label="Current" type="checkbox" />
             <Select label="Trainings" :options="trainings" @value-changed="addTraining" />
             <div class="row" v-for="(training, index) in form.trainings" :key="index">
                 <div>{{ training._training.name }}</div>
