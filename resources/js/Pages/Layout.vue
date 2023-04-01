@@ -12,6 +12,8 @@ defineProps({
 
 <template>
     <nav>
+        <div class="name">{{ user.name }}</div>
+
         <Link :href="route('dashboard')" :class="{ active: $page.url.startsWith('/dashboard') }">Dashboard</Link>
         <Link :href="route('exercises.index')" :class="{ active: $page.url.startsWith('/exercises') }">Exercise</Link>
         <Link :href="route('trainings.index')" :class="{ active: $page.url.startsWith('/trainings') }">Training</Link>
@@ -24,9 +26,8 @@ defineProps({
             {{ flash.error }}
         </div>
 
-        <div class="name pull-down">{{ user.name }}</div>
-
-        <Link :href="route('logout')" method="post" as="button">Logout</Link>
+        <Link :href="route('logout')" :class="{ 'pull-down': !flash.success && !flash.error }" method="post" as="button">
+        Logout</Link>
     </nav>
     <main>
 
@@ -78,17 +79,22 @@ nav {
     .name {
         color: white;
         padding: 1rem;
+        font-weight: bold;
+        cursor: default;
     }
 
     .flash {
-        padding: 0 1rem;
+        margin-top: auto;
+        padding: 1rem;
 
         &.success {
-            color: green;
+            background-color: green;
+            color: #171923;
         }
 
         &.error {
-            color: red;
+            background-color: red;
+            color: #171923;
         }
     }
 }
