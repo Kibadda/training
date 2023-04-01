@@ -24,13 +24,11 @@ const form = useForm({
 });
 
 function addTraining(index) {
-    if (index > -1) {
-        const training = props.trainings.splice(index, 1)[0];
-        form.trainings.push({
-            id: training.id,
-            _training: training,
-        });
-    }
+    const training = props.trainings.splice(index, 1)[0];
+    form.trainings.push({
+        id: training.id,
+        _training: training,
+    });
 }
 
 function removeTraining(index) {
