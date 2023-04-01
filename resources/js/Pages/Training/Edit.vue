@@ -28,17 +28,15 @@ const form = useForm({
 });
 
 function addExercise(index) {
-    if (index > -1) {
-        const exercise = props.exercises.splice(index, 1)[0];
-        form.exercises.push({
-            id: exercise.id,
-            pivot: {
-                sets: 3,
-                repetitions: 10,
-            },
-            _exercise: exercise,
-        });
-    }
+    const exercise = props.exercises.splice(index, 1)[0];
+    form.exercises.push({
+        id: exercise.id,
+        pivot: {
+            sets: 3,
+            repetitions: 10,
+        },
+        _exercise: exercise,
+    });
 }
 
 function removeExercise(index) {

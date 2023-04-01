@@ -23,9 +23,9 @@ defineEmits([
 
 <template>
     <div :class="{ hidden: type == 'hidden' }">
-        <Label :text="label" :id="randomId" :error="error" />
         <input :type="type" :id="randomId" :value="modelValue" @input="$emit('update:model-value', $event.target.value)"
             :class="{ error: error }" />
+        <Label v-if="type != 'hidden'" :text="label" :id="randomId" :error="error" />
     </div>
 </template>
 
