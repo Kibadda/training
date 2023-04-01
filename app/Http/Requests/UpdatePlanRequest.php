@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Models\Plan;
+use App\Models\Training;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -27,6 +28,10 @@ class UpdatePlanRequest extends FormRequest
             'name' => [
                 'required',
                 Rule::unique(Plan::class)->ignore($this->get('id')),
+            ],
+            'trainings.*.id' => [
+                'required',
+                Rule::exists(Training::class),
             ],
         ];
     }
