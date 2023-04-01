@@ -4,12 +4,6 @@ defineProps({
     text: String,
     error: String,
 });
-
-// function toTitleCase(str) {
-//     return str.replace(/([a-z])([A-Z])/g, '$1 $2').replace(/([^\W_]+[^\s-]*) */g, function (word) {
-//         return word.charAt(0).toUpperCase() + word.substr(1).toLowerCase();
-//     });
-// }
 </script>
 
 <template>
