@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StorePlanRequest;
 use App\Http\Requests\UpdatePlanRequest;
 use App\Models\Plan;
+use App\Models\Training;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -20,13 +21,21 @@ class PlanController extends Controller
 
     public function create(): Response
     {
-        return Inertia::render('Plan/Create');
+        return Inertia::render('Plan/Create', [
+            'trainings' => Training::all(),
+            'selected' => collect([]),
+        ]);
     }
 
     public function store(StorePlanRequest $request): RedirectResponse
     {
-        $plan = new Plan($request->validated());
+        $safe = $request->safe()->collect();
+        $plan = new Plan($safe->all());
         $plan->save();
+
+        if (!empty($safe['trainings'])) {
+            $plan->trainings()->sync(collect($safe['trainings'])->map(fn (array $item) => $item['id']));
+        }
 
         session()->flash('success', 'Plan saved successfully!');
 
@@ -37,12 +46,19 @@ class PlanController extends Controller
     {
         return Inertia::render('Plan/Edit', [
             'plan' => $plan,
+            'trainings' => Training::query()->whereNotIn('id', $plan->trainings->pluck('id'))->get(),
+            'selected' => $plan->trainings,
         ]);
     }
 
     public function update(UpdatePlanRequest $request, Plan $plan): RedirectResponse
     {
-        $plan->update($request->validated());
+        $safe = $request->safe()->collect();
+        $plan->update($safe->all());
+
+        if (!empty($safe['trainings'])) {
+            $plan->trainings()->sync(collect($safe['trainings'])->map(fn (array $item) => $item['id']));
+        }
 
         session()->flash('success', 'Plan updated successfully!');
 
