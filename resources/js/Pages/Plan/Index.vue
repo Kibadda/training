@@ -14,6 +14,7 @@ defineProps({
             <thead>
                 <tr>
                     <th>Name</th>
+                    <th>Current</th>
                     <th>Created</th>
                     <th>Updated</th>
                     <th></th>
@@ -22,6 +23,7 @@ defineProps({
             <tbody>
                 <tr v-for="plan in plans">
                     <td>{{ plan.name }}</td>
+                    <td>{{ plan.current }}</td>
                     <td>{{ plan.created_at }}</td>
                     <td>{{ plan.updated_at }}</td>
                     <td>
