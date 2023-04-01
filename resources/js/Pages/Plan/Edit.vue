@@ -15,6 +15,7 @@ const props = defineProps({
 const form = useForm({
     id: props.plan.id,
     name: props.plan.name,
+    current: props.plan.current,
     trainings: props.selected.map(training => {
         return {
             id: training.id,
@@ -42,6 +43,7 @@ function removeTraining(index) {
         <Link :href="route('plans.index')">Back</Link>
         <Form @submit.prevent="form.put(route('plans.update', plan.id))">
             <Input v-model="form.name" :error="form.errors.name" label="Name" />
+            <Input v-model="form.current" label="Current" type="checkbox" />
             <Select label="Trainings" :options="trainings" @value-changed="addTraining" />
             <div class="row" v-for="(exercise, index) in form.trainings" :key="index">
                 <div>{{ exercise._training.name }}</div>
