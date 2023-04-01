@@ -17,6 +17,7 @@ class Plan extends Model
      */
     protected $fillable = [
         'name',
+        'current',
     ];
 
     public function trainings(): BelongsToMany
